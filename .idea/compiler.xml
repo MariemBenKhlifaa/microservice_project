@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="reclamation-service" />
+        <module name="formation-service" />
         <module name="Api-Gateway" />
         <module name="eureka" />
-        <module name="formation-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -18,6 +19,7 @@
       <module name="Api-Gateway" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="formation-service" options="-parameters" />
+      <module name="reclamation-service" options="-parameters" />
     </option>
   </component>
 </project>
