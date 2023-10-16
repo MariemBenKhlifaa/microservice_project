@@ -23,11 +23,19 @@ public class Condidature {
     private String prenom;
     private String email;
     private String tel;
+
     private String cv;
+
     private String lettreMotivation;
+
     @ManyToOne
     @JoinColumn(name = "ProjetId")
     @JsonIgnore
 
     private Projet projet;
+
+    public void setCv(String path) {
+        this.cv= path;
+    }
+
 }
