@@ -15,6 +15,9 @@ public class GatewayConfig {
         return builder.routes()
                 .route("formation-service", r -> r.path("/formation-service/**").uri("lb://formation-service"))
                 .route("reclamation-service", r -> r.path("/reclamation-service/**").uri("lb://reclamation-service"))
+                .route("uploads-route", r -> r.path("/reclamation-service/uploads/**")
+                        .uri("lb://reclamation-service"))
+
                 .route("discovery-server", r -> r.path("/eureka/web").filters(f -> f.setPath("/")).uri("http://localhost:8761"))
                 .route("discovery-server-static", r -> r.path("/eureka/**") .uri("http://localhost:8761"))
                 .build();
