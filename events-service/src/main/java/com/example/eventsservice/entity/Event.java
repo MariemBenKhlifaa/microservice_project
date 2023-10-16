@@ -3,7 +3,10 @@ package com.example.eventsservice.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,5 +24,8 @@ public class Event {
     private String Lieu;
     private String prix;
     private Date dateEvent;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participate> participations = new ArrayList<>();
+
 
 }
