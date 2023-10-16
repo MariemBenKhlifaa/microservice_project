@@ -9,7 +9,11 @@ public interface ReclamationInterface {
 
     public Reclamation addReclamation(Reclamation reclamation, MultipartFile pieceJointe);
 
-    public List<Reclamation> getReclamations();
+    public List<Reclamation> getReclamationsTraitees();
+
+    List<Reclamation> getReclamations();
+
+    public List<Reclamation> getReclamationsNonTraitees();
 
     public void deleteReclamation(Long id);
 }
