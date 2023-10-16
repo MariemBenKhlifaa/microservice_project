@@ -1,5 +1,6 @@
 package com.example.projetservice.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,6 +15,8 @@ import java.util.Set;
 @ToString
 @Table( name = "Condidature")
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Condidature {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -24,7 +27,7 @@ public class Condidature {
     private String email;
     private String tel;
 
-    private String cv;
+    private String pieceJointe;
 
     private String lettreMotivation;
 
@@ -34,8 +37,6 @@ public class Condidature {
 
     private Projet projet;
 
-    public void setCv(String path) {
-        this.cv= path;
-    }
+
 
 }

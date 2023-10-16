@@ -6,6 +6,7 @@ import com.example.projetservice.repo.CondidatureRepo;
 import com.example.projetservice.repo.ProjetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @Service
@@ -23,7 +24,7 @@ public class CondidatureService implements  CondidatureInterface{
     }
 
     @Override
-    public Condidature AddPCondidature(Long projetId, Condidature condidature) {
+    public Condidature AddPCondidature(Long projetId, Condidature condidature,MultipartFile pieceJointe) {
         Projet projet = projetRepo.findById(projetId).orElseThrow(() -> new RuntimeException("Projet not found")); // Vérifiez l'existence du projet
 
         condidature.setProjet(projet);
