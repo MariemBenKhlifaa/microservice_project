@@ -10,4 +10,5 @@ public interface CondidatureInterface {
     public Condidature AddPCondidature(Long projetId, Condidature condidature, MultipartFile pieceJointe);
     public Condidature findCondidature(Long id);
     public void deleteCondidature(Long id);
-}
+
+    }

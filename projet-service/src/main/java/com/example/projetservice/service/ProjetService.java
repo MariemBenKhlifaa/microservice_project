@@ -1,5 +1,6 @@
 package com.example.projetservice.service;
 
+import com.example.projetservice.entity.Condidature;
 import com.example.projetservice.entity.Projet;
 import com.example.projetservice.repo.ProjetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +58,7 @@ public class ProjetService implements ProjetInterface {
         Projet projet = projetRepo.findById(id).get();
         projetRepo.delete(projet);
     }
+
+
+
 }

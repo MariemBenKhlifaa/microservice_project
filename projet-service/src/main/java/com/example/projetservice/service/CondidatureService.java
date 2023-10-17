@@ -7,7 +7,9 @@ import com.example.projetservice.repo.ProjetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.TypedQuery;
 import java.util.List;
 @Service
 
@@ -15,6 +17,9 @@ public class CondidatureService implements  CondidatureInterface{
 
     @Autowired
     CondidatureRepo condidatureRepo;
+    @Autowired
+    private EntityManager entityManager;
+
     @Autowired
     private ProjetRepo projetRepo;
 
@@ -46,4 +51,12 @@ public class CondidatureService implements  CondidatureInterface{
         condidatureRepo.delete(condidature);
 
     }
+
+    public List<Condidature> getCondidaturesByProjetId(Long projectId) {
+        String jpql = "SELECT c FROM Condidature c WHERE c.projet.ProjetId = :projectId";
+        TypedQuery<Condidature> query = entityManager.createQuery(jpql, Condidature.class);
+        query.setParameter("projectId", projectId);
+        return query.getResultList();
+    }
+
 }

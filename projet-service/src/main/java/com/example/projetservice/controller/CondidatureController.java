@@ -3,6 +3,7 @@ package com.example.projetservice.controller;
 
 import com.example.projetservice.entity.Condidature;
 import com.example.projetservice.service.CondidatureInterface;
+import com.example.projetservice.service.CondidatureService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -34,6 +35,8 @@ public class CondidatureController {
     @Autowired
     private CondidatureInterface condidatureInterface;
 
+    @Autowired
+    private CondidatureService condidatureService;
 
 // ...
 @PostMapping(value = "/condidate/{projetId}", consumes = "multipart/form-data")
@@ -98,5 +101,8 @@ public ResponseEntity<Condidature> addCondidatureToProjet(@PathVariable Long pro
         condidatureInterface.deleteCondidature(id);
     }
 
-
+    @GetMapping("/byProjet/{projectId}")
+    public List<Condidature> getCondidaturesByProjetId(@PathVariable Long projectId) {
+        return condidatureService.getCondidaturesByProjetId(projectId);
+    }
 }
