@@ -54,7 +54,7 @@ public Condidature addCondidatureToProjet ( @PathVariable Long projetId,@Request
         throw new RuntimeException(e);
     }
 }
-  
+
 
     @GetMapping("/listCondid")
     public List<Condidature> getallCondidature(){
