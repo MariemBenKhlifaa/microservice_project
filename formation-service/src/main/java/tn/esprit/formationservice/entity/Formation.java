@@ -1,12 +1,15 @@
 package tn.esprit.formationservice.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Getter
@@ -15,7 +18,8 @@ import java.util.Set;
 @ToString
 @Table( name = "Formation")
 @NoArgsConstructor
-public class Formation {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idFormation")
+public class Formation  implements Serializable {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -28,6 +32,9 @@ public class Formation {
     private Date date_fin;
     private String image;
     private String prix;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "formation")
+
+    List<Inscription> inscriptions;
 
 
 
