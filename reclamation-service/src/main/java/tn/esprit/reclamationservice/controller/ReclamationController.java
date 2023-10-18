@@ -71,7 +71,9 @@ public class ReclamationController {
 
     @PostMapping(value = "/addReponse/{idRec}", consumes = "multipart/form-data")
     public Reponse addReponse(@PathVariable Long idRec, @RequestPart("reponse") String reponse, @RequestPart("pieceJointe") MultipartFile pieceJointe) throws IOException {
+
         try {
+
             ObjectMapper mapper = new ObjectMapper();
             Reponse reponseObj = mapper.readValue(reponse, Reponse.class);
 
@@ -87,13 +89,19 @@ public class ReclamationController {
 
             // Set the file name in the reclamation object (if needed)
             reponseObj.setPieceJointe(uniqueFileName);
-            reponseInterface.addReponse(idRec, reponseObj, pieceJointe);
+            Reponse rep = reponseInterface.addReponse(idRec, reponseObj, pieceJointe);
             return reponseObj;
         } catch (IOException e) {
             // Handle any exceptions, e.g., file write errors
             throw new RuntimeException(e);
         }
     }
+
+    @GetMapping("/getReponse/{idReclamaion}")
+    public Reponse getReponse(@PathVariable Long idReclamaion){
+        return  reponseInterface.getReponse(idReclamaion);
+    }
+
 
 
 }
