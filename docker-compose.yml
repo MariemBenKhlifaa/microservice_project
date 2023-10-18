@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  formation-service:
+    container_name: formation-service
+    build:
+      context: ./formation-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/formation-service?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    depends_on:
+      - eureka
+      - mysql
+      - api-gateway
+    networks:
+      - spring-network
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./Api-Gateway
+    ports:
+      - "8088:8088"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    depends_on:
+      - eureka
+    networks:
+      - spring-network
+
+  eureka:
+    container_name: eureka
+    build:
+      context: ./eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-network
+
+  mysql:
+    image: mysql:5.6
+    volumes:
+      - ./sito/db:/var/lib/mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: formation-service
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    networks:
+      - spring-network
+
+networks:
+  spring-network:
+
