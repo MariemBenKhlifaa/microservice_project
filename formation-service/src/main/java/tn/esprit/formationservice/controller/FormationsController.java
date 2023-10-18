@@ -1,9 +1,13 @@
 package tn.esprit.formationservice.controller;
 
+import com.fasterxml.jackson.core.JacksonException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.formationservice.entity.Formation;
 import tn.esprit.formationservice.service.Formationinterface;
+import tn.esprit.formationservice.service.InscriptionInterface;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
@@ -11,9 +15,15 @@ import java.util.List;
 public class FormationsController {
     @Autowired
     Formationinterface formationinterface;
+
     @PostMapping("/addFormation")
-    public Formation addFormation(@RequestBody Formation formation){
-      return  formationinterface.AddFormation(formation);
+    public void addFormation(@RequestParam("file") MultipartFile file, @RequestParam("formation")String formation) {
+        System.out.println(file);
+
+
+            formationinterface.AddFormation(formation, file);
+
+
     }
     @GetMapping("/listFormation")
     public List<Formation> getallFormation(){
