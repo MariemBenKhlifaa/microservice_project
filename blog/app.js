@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./BlogModule/eureka")
 var http = require("http");
 var createError = require("http-errors");
 var express = require("express");
@@ -8,12 +9,13 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var blogsRouter = require("./BlogModule/BlogController");
 var fileUploadRouter = require("./routes/fileUploadRoute");
-
 const cors = require("cors");
+
 
 var app = express();
 
-app.use(cors({ origin: "http://localhost:4200" }));
+app.use(cors({   origin: 'http://localhost:8088',
+  methods: 'GET,POST,DELETE' }));
 
 app.use(cookieParser());
 app.use(express.json());
@@ -46,13 +48,13 @@ app.use("/", indexRouter);
 app.use("/upload", fileUploadRouter);
 app.use("/blogs", blogsRouter);
 app.post("/blogs/addc", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8088");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.status(200).send("Blog added successfully");
 });
 app.post("/upload", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8088");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.status(200).send("Blog added successfully");
