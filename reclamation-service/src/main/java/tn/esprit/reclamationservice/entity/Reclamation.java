@@ -1,4 +1,5 @@
 package tn.esprit.reclamationservice.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
@@ -26,8 +27,13 @@ public class Reclamation {
     private boolean etat = false;
     private String pieceJointe;
 
-    @OneToOne(mappedBy = "reclamation")
+    @OneToOne(mappedBy = "reclamation", cascade = CascadeType.REMOVE)
     private Reponse reponse;
+
+    @JsonBackReference
+    public Reponse getReponse() {
+        return reponse;
+    }
 
     @PrePersist
     protected void onCreate() {

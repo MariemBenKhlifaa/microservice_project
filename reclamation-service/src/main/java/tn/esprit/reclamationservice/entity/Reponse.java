@@ -1,4 +1,5 @@
 package tn.esprit.reclamationservice.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
@@ -23,6 +24,10 @@ public class Reponse {
 
     @OneToOne
     private Reclamation reclamation;
+    @JsonManagedReference
+    public Reclamation getReclamation() {
+        return reclamation;
+    }
 
     @PrePersist
     protected void onCreate() {

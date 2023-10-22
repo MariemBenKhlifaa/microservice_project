@@ -10,6 +10,6 @@ public interface ReponseInterface {
 
     public Reponse addReponse(Long idReclamation, Reponse reponse, MultipartFile pieceJointe);
 
-    public List<Reponse> getReponse();
+    public Reponse getReponse(Long reclamationId);
 
 }
