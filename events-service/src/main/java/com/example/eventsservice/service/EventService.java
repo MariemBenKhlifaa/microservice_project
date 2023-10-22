@@ -44,7 +44,9 @@ public class EventService  implements EventInterface{
         if (e.getPrix() !=null){
             event.setPrix(e.getPrix());
         }
-
+        if (e.getImage() !=null){
+            event.setImage(e.getImage());
+        }
 
         return  eventRepo.save(event);
     }

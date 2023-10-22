@@ -24,6 +24,7 @@ public class Event {
     private String Lieu;
     private String prix;
     private Date dateEvent;
+    private String image;
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participate> participations = new ArrayList<>();
 
