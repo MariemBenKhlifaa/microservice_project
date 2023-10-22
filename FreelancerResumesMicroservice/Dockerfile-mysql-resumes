@@ -1,0 +1,5 @@
+# Use the official MySQL image as a parent image
+FROM mysql:latest
+
+# Define environment variables for MySQL root password
+ENV MYSQL_ROOT_PASSWORD=my-secret-pw
