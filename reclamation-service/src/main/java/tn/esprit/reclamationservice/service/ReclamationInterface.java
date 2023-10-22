@@ -1,6 +1,8 @@
 package tn.esprit.reclamationservice.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import tn.esprit.reclamationservice.entity.Categorie;
+import tn.esprit.reclamationservice.entity.Evaluation;
 import tn.esprit.reclamationservice.entity.Reclamation;
 
 import java.util.List;
@@ -16,4 +18,7 @@ public interface ReclamationInterface {
     public List<Reclamation> getReclamationsNonTraitees();
 
     public void deleteReclamation(Long id);
+
+    List<Reclamation> filterReclamations(Evaluation evaluation,Categorie categorie);
+
 }

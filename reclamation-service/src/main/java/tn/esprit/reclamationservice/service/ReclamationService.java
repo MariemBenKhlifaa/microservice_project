@@ -4,6 +4,8 @@ package tn.esprit.reclamationservice.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import tn.esprit.reclamationservice.entity.Categorie;
+import tn.esprit.reclamationservice.entity.Evaluation;
 import tn.esprit.reclamationservice.entity.Reclamation;
 import tn.esprit.reclamationservice.repo.ReclamationRepository;
 
@@ -38,8 +40,24 @@ public class ReclamationService implements ReclamationInterface {
     @Override
     public void deleteReclamation(Long id) {
         Reclamation reclamation = reclamationRepository.findById(id).get();
-        if (reclamation.isEtat()) {
             reclamationRepository.delete(reclamation);
+
+    }
+
+    @Override
+    public List<Reclamation> filterReclamations(Evaluation evaluation, Categorie categorie) {
+        if (evaluation != null && categorie != null) {
+            // Filter by both evaluation and categorie
+            return reclamationRepository.findByEvaluationAndCategorieAndEtatFalse(evaluation, categorie);
+        } else if (evaluation != null) {
+            // Filter by evaluation only
+            return reclamationRepository.findByEvaluationAndEtatFalse(evaluation);
+        } else if (categorie != null) {
+            // Filter by categorie only
+            return reclamationRepository.findByCategorieAndEtatFalse(categorie);
+        } else {
+            // No filter criteria provided, return all reclamations
+            return reclamationRepository.findByEtatFalse();
         }
     }
 
