@@ -1,16 +1,25 @@
 package tn.esprit.formationservice.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.formationservice.entity.Formation;
 import tn.esprit.formationservice.repo.FormationRepo;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Service
 public class FormationService implements Formationinterface {
     @Autowired
 FormationRepo formationRepo;
+
 
 
     @Override
@@ -19,9 +28,27 @@ FormationRepo formationRepo;
     }
 
     @Override
-    public Formation AddFormation(Formation e) {
-        return formationRepo.save(e);
+    public Formation AddFormation(String formationData, MultipartFile file) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Formation formation = objectMapper.readValue(formationData, Formation.class);
+
+            String fileName = file.getOriginalFilename();
+            String uploadDir = System.getProperty("user.dir") + "/uploadd/";
+            String filePath = Paths.get(uploadDir, fileName).toString();
+            Files.createDirectories(Paths.get(uploadDir)); // Assurez-vous que le répertoire existe
+            Files.copy(file.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+
+            formation.setImage(fileName);
+            formationRepo.save(formation);
+            return formation;
+        } catch (IOException ex) {
+            System.out.println(ex);
+            return null;
+        }
     }
+
+
 
     @Override
     public Formation findFormation(Long id) {
@@ -54,7 +81,7 @@ FormationRepo formationRepo;
 
         formationRepo.save(formation);
 
-        return null;
+        return formation;
     }
 
     @Override
