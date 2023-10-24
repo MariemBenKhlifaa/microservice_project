@@ -13,6 +13,4 @@ public interface ProjetInterface {
     public Projet updateProjet(Projet p, Long id);
     public void deleteProjet(Long id);
 
-
-
 }

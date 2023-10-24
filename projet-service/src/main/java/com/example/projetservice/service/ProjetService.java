@@ -60,5 +60,7 @@ public class ProjetService implements ProjetInterface {
     }
 
 
-
+    public List<Projet> searchByNom(String nom) {
+        return projetRepo.findByNomContaining(nom);
+    }
 }
