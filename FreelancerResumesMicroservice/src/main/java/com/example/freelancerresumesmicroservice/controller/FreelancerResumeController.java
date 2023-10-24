@@ -10,37 +10,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/freelancer-resumes")
+
 public class FreelancerResumeController {
 
     @Autowired
     private FreelancerResumeService freelancerResumeService;
 
-    @PostMapping
+    @PostMapping("/add_resume")
     public ResponseEntity<FreelancerResume> createFreelancerResume(@RequestBody FreelancerResume freelancerResume) {
         FreelancerResume createdResume = freelancerResumeService.createFreelancerResume(freelancerResume);
         return new ResponseEntity<>(createdResume, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/get_resume")
     public ResponseEntity<List<FreelancerResume>> getAllFreelancerResumes() {
         List<FreelancerResume> resumes = freelancerResumeService.getAllFreelancerResumes();
         return new ResponseEntity<>(resumes, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("get_resume/{id}")
     public ResponseEntity<FreelancerResume> getFreelancerResumeById(@PathVariable Long id) {
         FreelancerResume resume = freelancerResumeService.getFreelancerResumeById(id);
         return new ResponseEntity<>(resume, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update_resume/{id}")
     public ResponseEntity<FreelancerResume> updateFreelancerResume(@PathVariable Long id, @RequestBody FreelancerResume updatedResume) {
         FreelancerResume updated = freelancerResumeService.updateFreelancerResume(id, updatedResume);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete_resume/{id}")
     public ResponseEntity<?> deleteFreelancerResume(@PathVariable Long id) {
         freelancerResumeService.deleteFreelancerResume(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

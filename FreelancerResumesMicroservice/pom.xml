@@ -8,11 +8,11 @@
         <version>2.7.16</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>tn.esprit</groupId>
-    <artifactId>formation-service</artifactId>
+    <groupId>com.example.freelancerresumesmicroservice</groupId>
+    <artifactId>freelancer-resumes-microservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>formation-service</name>
-    <description>formation-service</description>
+    <name>Freelancer Resumes Microservice</name>
+    <description>Microservice for Freelancer Resumes</description>
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
@@ -39,6 +39,16 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.6.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.2.Final</version>
+        </dependency>
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
