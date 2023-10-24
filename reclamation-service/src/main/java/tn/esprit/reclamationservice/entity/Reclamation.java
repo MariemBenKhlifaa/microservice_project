@@ -17,6 +17,7 @@ public class Reclamation {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name="idReclamation")
     private Long idReclamation;
+    private String nom;
     private String sujet;
     private String description;
     private Date dateSoumission;
