@@ -1,10 +1,9 @@
-package com.example.freelancerresumesmicroservice.controller;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+package com.example.resumeservice2.controller;
+
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.freelancerresumesmicroservice.entity.FreelancerResume;
-import com.example.freelancerresumesmicroservice.service.FreelancerResumeService;
+import com.example.resumeservice2.entity.FreelancerResume;
+import com.example.resumeservice2.service.FreelancerResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/freelancer-resumes")
@@ -41,7 +36,7 @@ public class FreelancerResumeController {
 
 
 
-    private JavaMailSender javaMailSender;
+
 
     @PostMapping
     public ResponseEntity<FreelancerResume> createFreelancerResume(@RequestBody FreelancerResume freelancerResume) {
@@ -102,16 +97,5 @@ public class FreelancerResumeController {
                 .body(resource);
     }
 
-    @GetMapping("/send-email")
-    public String sendEmail() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("oz.oussema@gùail.com");
-        message.setTo("recipient@example.com");
-        message.setSubject("Test Email Subject");
-        message.setText("This is a test email message.");
 
-        javaMailSender.send(message);
-
-        return "Email sent successfully!";
-    }
 }
