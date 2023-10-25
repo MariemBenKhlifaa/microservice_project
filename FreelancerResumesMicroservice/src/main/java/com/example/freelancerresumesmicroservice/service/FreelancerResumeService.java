@@ -3,6 +3,7 @@ package com.example.freelancerresumesmicroservice.service;
 import com.example.freelancerresumesmicroservice.entity.FreelancerResume;
 import com.example.freelancerresumesmicroservice.repo.FreelancerResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,18 +25,43 @@ public class FreelancerResumeService {
     }
 
     public FreelancerResume getFreelancerResumeById(Long id) {
-        return freelancerResumeRepository.findById(id)
-                .orElseThrow(NoSuchElementException::new);
+        List<FreelancerResume> resumes = freelancerResumeRepository.findByUserId(id);
+
+        if (resumes.isEmpty()) {
+            // Handle the case where no resume was found for the provided userId
+            // You can throw an exception or return a default value or response
+            // For example, you can throw a NotFoundException
+           return null;
+        }
+
+        // Return the first (and presumably only) resume in the list
+        return resumes.get(0);
+
     }
 
     public FreelancerResume updateFreelancerResume(Long id, FreelancerResume updatedResume) {
         FreelancerResume existingResume = getFreelancerResumeById(id);
-        // You can update specific fields here.
-        existingResume.setName(updatedResume.getName());
-        existingResume.setEmail(updatedResume.getEmail());
-        // Update other fields as needed.
-        return freelancerResumeRepository.save(existingResume);
+
+        if (existingResume != null) {
+            // Update all fields from updatedResume
+            existingResume.setName(updatedResume.getName());
+            existingResume.setEmail(updatedResume.getEmail());
+            existingResume.setAge(updatedResume.getAge());
+            existingResume.setLocation(updatedResume.getLocation());
+            existingResume.setProfessionTitle(updatedResume.getProfessionTitle());
+            existingResume.setWeb(updatedResume.getWeb());
+            existingResume.setPreHour(updatedResume.getPreHour());
+            existingResume.setResumePdf(updatedResume.getResumePdf());
+            existingResume.setUserId(updatedResume.getUserId());
+
+            // Update other fields as needed.
+
+            return freelancerResumeRepository.save(existingResume);
+        } else {
+            return null;
+        }
     }
+
 
     public void deleteFreelancerResume(Long id) {
         FreelancerResume existingResume = getFreelancerResumeById(id);

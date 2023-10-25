@@ -20,6 +20,9 @@ public class FreelancerResume {
     private String web;
     private Double preHour;
     private Integer age;
+    @Lob
+    @Column(name = "resume_pdf", columnDefinition = "BLOB")
+    private byte[] resumePdf;
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 

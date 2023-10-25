@@ -11,12 +11,14 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="formation-service" target="1.8" />
       <module name="FreelancerResumesMicroservice" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="FreelancerResumesMicroservice" options="-parameters" />
+      <module name="formation-service" options="-parameters" />
     </option>
   </component>
 </project>
